@@ -295,7 +295,7 @@ $(document).ready(function() {
     $("#drilldown").show();
   }
 
-  $.getJSON('aggregations.json', function(data) {
+  $.getJSON('fathers/bible/aggregations.json', function(data) {
       aggregations = data;
       titles = Object.keys(data).sort();
       // Check if both JSONs are loaded
@@ -303,14 +303,14 @@ $(document).ready(function() {
   });
 
   // Load ESV.json
-  $.getJSON('ASV.json', function(data) {
+  $.getJSON('fathers/bible/ASV.json', function(data) {
       bible = data['books'];
       // Check if both JSONs are loaded
       if (aggregations && authors) generateTable();
   });  
 
   // Load ESV.json
-  $.getJSON('authors.json', function(data) {
+  $.getJSON('fathers/bible/authors.json', function(data) {
       authors = data;
       console.log("Authors loaded");
       console.log(authors);

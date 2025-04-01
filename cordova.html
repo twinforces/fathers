@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>FathersApp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    #browser-chrome {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: #f0f0f0;
+      padding: 5px;
+      box-sizing: border-box;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Space between elements */
+    }
+    #browser-chrome button {
+      font-size: 14px;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      background-color: #ddd;
+    }
+    #browser-chrome button:hover {
+      background-color: #ccc;
+    }
+    #browser-chrome input {
+      flex-grow: 1; /* URL bar expands */
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    #content {
+      width: 100%;
+      height: calc(100% - 50px);
+      border: none;
+      margin-top: 50px;
+      display: block;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+  </style>
+</head>
+<body>
+  <div id="browser-chrome">
+    <button onclick="goBack()">Back</button>
+    <button onclick="goForward()">Forward</button>
+    <button onclick="fontSizeUp()">A+</button>
+    <button onclick="fontSizeDown()">A-</button>
+  </div>
+  <iframe id="content" src="./fathers/bible/bible.html"></iframe>
+
+  <script>
+    function goBack() {
+      document.getElementById("content").contentWindow.history.back();
+    }
+
+    function goForward() {
+      document.getElementById("content").contentWindow.history.forward();
+    }
+
+    function fontSizeUp() {
+      var iframe = document.getElementById("content");
+      var doc = iframe.contentDocument || iframe.contentWindow.document;
+      var body = doc.body;
+      var currentSize = parseFloat(window.getComputedStyle(body).fontSize) || 16; // Default 16px
+      body.style.fontSize = (currentSize + 2) + "px";
+      console.log("Font size increased to: " + body.style.fontSize);
+    }
+
+    function fontSizeDown() {
+      var iframe = document.getElementById("content");
+      var doc = iframe.contentDocument || iframe.contentWindow.document;
+      var body = doc.body;
+      var currentSize = parseFloat(window.getComputedStyle(body).fontSize) || 16; // Default 16px
+      if (currentSize > 8) { // Minimum size
+        body.style.fontSize = (currentSize - 2) + "px";
+        console.log("Font size decreased to: " + body.style.fontSize);
+      }
+    }
+  </script>
+</body>
+</html>
